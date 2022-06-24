@@ -1,15 +1,13 @@
 package ru.job4j.iterator;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;
 
-import static com.sun.org.apache.xerces.internal.util.FeatureState.is;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
-
-public class BackwardArrayItTest extends TestCase {
-
+public class BackwardArrayItTest {
     @Test
     public void whenMultiCallhasNextThenTrue() {
         BackwardArrayIt it = new BackwardArrayIt(
@@ -36,4 +34,5 @@ public class BackwardArrayItTest extends TestCase {
         );
         it.next();
     }
+
 }
