@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class EvenNumbersIterator implements Iterator<Integer> {
     private int[] data;
-    private int index;
+    private int index = 0;
 
     public EvenNumbersIterator(int[] data) {
         this.data = data;
@@ -13,12 +13,13 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        for (index = 0; index < data.length; index++) {
-            if (index % 2 != 0) {
-                index++;
+        for (int i = index; i < data.length; i++) {
+            if (data[index] % 2 != 0) {
+                data[index++]; //я не понимаю, как присвоить значение true и сохранить переменную
+                break;
             }
         }
-        return false;
+        return index < data[index];
     }
 
     @Override
