@@ -16,9 +16,9 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     /**
      * Проверяет массив элементов на четность
-     * Если элемент четный, то индекс приравниваем к элементу и выходим из цикла.
-     *
-     * @return
+     * начиная с index, проходим массив, пока не найдем четный элемент.
+     * Когда он найден, то запоминаем его индекс и выходим из цикла.
+     * @return проверяем, что индекс не вышел за пределы массива и что элемент по этому индексу четный.
      */
     @Override
     public boolean hasNext() {
@@ -28,10 +28,7 @@ public class EvenNumbersIterator implements Iterator<Integer> {
                 break;
             }
         }
-        if (index < data.length) {
-           return data[index] % 2 == 0;
-        }
-        return index <  data.length;
+        return index <  data.length && data[index] % 2 == 0;
     }
 
     /**
