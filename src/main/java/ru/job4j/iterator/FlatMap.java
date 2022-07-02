@@ -1,11 +1,15 @@
 package ru.job4j.iterator;
 
-import com.sun.tools.javac.util .List;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * FlatMap для Iterator(метод flatMap позволяет получить из элемента потока другой поток.)
+ *
+ */
 public class FlatMap implements Iterator<Integer> {
     private final Iterator<Iterator<Integer>> data;
     private Iterator<Integer> cursor = Collections.emptyIterator();
@@ -14,14 +18,24 @@ public class FlatMap implements Iterator<Integer> {
         this.data = data;
     }
 
+    /**
+     * Проверяем, что data(итератор, который содержит несколько итераторов внутри) имеется к выдачи.
+     * И cursor(итератор, внутри которого располагаются элементы int) не пустой. Если результат удовлетворяющий,
+     * то помещяем в поток cursor новый итератор
+     * @return Если false, то cursor остаётся в нетронутом состоянии.
+     */
     @Override
     public boolean hasNext() {
         while (data.hasNext() && !cursor.hasNext()) {
             cursor = data.next();
         }
-        return false;
+        return cursor.hasNext();
     }
 
+    /**
+     * Проверка, в случаи если в iterator нет элементов.
+     * @return числа нового потока.
+     */
     @Override
     public Integer next() {
         if (!hasNext()) {
