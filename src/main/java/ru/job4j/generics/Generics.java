@@ -5,28 +5,29 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Generics {
-     Generics gen = new Generics();
+    public static void main(String[] args) {
+        Generics gen = new Generics();
     List<Animal> first = new ArrayList<>();
     List<Predator> second = new ArrayList<>();
     List<Tiger> third = new ArrayList<>();
-        first.add(new Animal());
-        second.add(new Predator());
-        third.add(new Tiger());
+        first.add(new Animal("Dog", 14));
+        second.add(new Predator("Leo", 21));
+        third.add(new Tiger("Tiger", 7));
 
        /** gen.printObject(first);*/
         gen.printObject(second);
         gen.printObject(third);
         System.out.println();
 
-        gen.printBoundedWildCard(first);
+       /** gen.printBoundedWildCard(first); */
         gen.printBoundedWildCard(second);
-       /**gen.printBoundedWildCard(third);*/
+        gen.printBoundedWildCard(third);
         System.out.println();
 
-       /** gen.printLowerBoundedWildCard(first); */
+        gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-        gen.printLowerBoundedWildCard(third);
-
+       /** gen.printLowerBoundedWildCard(third); */
+}
     /**
      * WildCard
      * Специальный символ для обозначения неизвестного типа — «?».
