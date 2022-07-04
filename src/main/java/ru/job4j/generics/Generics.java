@@ -14,7 +14,7 @@ public class Generics {
         second.add(new Predator("Leo", 21));
         third.add(new Tiger("Tiger", 7));
 
-       /** gen.printObject(first);*/
+        gen.printObject(first);
         gen.printObject(second);
         gen.printObject(third);
         System.out.println();
