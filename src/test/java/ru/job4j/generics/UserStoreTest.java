@@ -1,13 +1,12 @@
 package ru.job4j.generics;
 
 import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class UserStoreTest {
 
     @Test
-    void whenAddAndFindThenUsernameIsPetr() {
+    public void whenAddAndFindThenUsernameIsPetr() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         User result = store.findById("1");
@@ -15,7 +14,7 @@ public class UserStoreTest {
     }
 
     @Test
-    void whenAddAndFindThenUserIsNull() {
+   public void whenAddAndFindThenUserIsNull() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         User result = store.findById("10");
@@ -23,7 +22,7 @@ public class UserStoreTest {
     }
 
     @Test
-    void whenAddDuplicateAndFindUsernameIsPetr() {
+   public void whenAddDuplicateAndFindUsernameIsPetr() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         store.add(new User("1", "Maxim"));
@@ -32,7 +31,7 @@ public class UserStoreTest {
     }
 
     @Test
-    void whenReplaceThenUsernameIsMaxim() {
+    public void whenReplaceThenUsernameIsMaxim() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         store.replace("1", new User("1", "Maxim"));
@@ -41,7 +40,7 @@ public class UserStoreTest {
     }
 
     @Test
-    void whenNoReplaceUserThenNoChangeUsername() {
+   public void whenNoReplaceUserThenNoChangeUsername() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         store.replace("10", new User("10", "Maxim"));
@@ -50,7 +49,7 @@ public class UserStoreTest {
     }
 
     @Test
-    void whenDeleteUserThenUserIsNull() {
+   public void whenDeleteUserThenUserIsNull() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         store.delete("1");
@@ -59,7 +58,7 @@ public class UserStoreTest {
     }
 
     @Test
-    void whenNoDeleteUserThenUsernameIsPetr() {
+   public void whenNoDeleteUserThenUsernameIsPetr() {
         UserStore store = new UserStore();
         store.add(new User("1", "Petr"));
         store.delete("10");
