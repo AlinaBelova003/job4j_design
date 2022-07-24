@@ -15,19 +15,25 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     }
 
+    public void enlargeContainer() {
+        if (container.length == 0) {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
+    }
+
     /**
      *Метод добавляет указанный элемен value.
-     * Если длина массива больше колличества элементов, то спокойно добавляем value в массив.
-     * Если размеры совпали, то увеличиваем массив в два раза.
+     * Если длина массива меньше колличества элементов, то вызываем метод увеличивающий массив
+     * Если размеры в нормальном диапозоне, то..
      * @param value
      */
     @Override
     public void add(T value) {
-        if (container.length > size) {
-            container[size] = value;
-            size++;
+        if (container.length <= size) {
+            enlargeContainer(container);
         }
-       container = Arrays.copyOf(container, container.length * 2);
+        container[size] = value;
+        size++;
 
     }
 
@@ -41,7 +47,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         Objects.checkIndex(index, size);
         T element = container[index];
         container[index] = newValue;
-        return newValue;
+        return element;
     }
 
     /**
@@ -74,7 +80,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T get(int index) {
         Objects.checkIndex(index, size);
-        return (T) container[index];
+        return container[index];
     }
 
     @Override
@@ -84,9 +90,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        int expectedModCount = modCount;
         return new Iterator<T>() {
-
+           private int expectedModCount = modCount;
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
@@ -101,7 +106,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return container[size];
+                return container[size++];
             }
         };
     }
