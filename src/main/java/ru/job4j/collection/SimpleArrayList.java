@@ -1,9 +1,6 @@
 package ru.job4j.collection;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleArrayList<T> implements SimpleList<T> {
 
@@ -18,14 +15,33 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     }
 
+    /**
+     *Метод добавляет указанный элемен value.
+     * Если длина массива больше колличества элементов, то спокойно добавляем value в массив.
+     * Если размеры совпали, то увеличиваем массив в два раза.
+     * @param value
+     */
     @Override
     public void add(T value) {
+        if (container.length > size) {
+            container[size] = value;
+            size++;
+        }
+       container = Arrays.copyOf(container, container.length * 2);
 
     }
 
+    /**
+     * Устанавливаем новое значение
+     * Проверили валидацию.
+     *Сохранили элемент по индексу (чтобы его потом вернуть в return), затем новый элемент положить в эту ячейку.
+     */
     @Override
     public T set(int index, T newValue) {
-        return null;
+        Objects.checkIndex(index, size);
+        T element = container[index];
+        container[index] = newValue;
+        return newValue;
     }
 
     /**
@@ -38,17 +54,26 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      * Четвертый параметр - начиная с какого индексв.
      * Пятый - количество элементов, которые будут скопированы.
      * Последняя строчка - для прекращения утечки памяти. Последний элемент в массиве null
+     * element - в нём сохраняем елемент по index и возращяем его в return
+     * уменьшем счетчик количества элементов в массиве (size) и увеличить счетчик структурных изменений (modCount).
      */
     @Override
     public T remove(int index) {
+        T element = container[index];
         Objects.checkIndex(index, size);
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
+        size--;
+        modCount++;
         container[container.length - 1] = null;
-        return null;
+        return element;
     }
 
+    /**
+     * Метод возвращает элемент, расположенный по указанному индексу.
+     */
     @Override
     public T get(int index) {
+        Objects.checkIndex(index, size);
         return (T) container[index];
     }
 

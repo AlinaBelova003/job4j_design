@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
-
-
 class SimpleArrayListTest {
 
     private SimpleList<Integer> list;
