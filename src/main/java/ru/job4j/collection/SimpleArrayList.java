@@ -15,8 +15,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     }
 
-    public void enlargeContainer() {
+    private void enlargeContainer() {
         if (container.length == 0) {
+            container = Arrays.copyOf(container, 10);
+        } else {
             container = Arrays.copyOf(container, container.length * 2);
         }
     }
@@ -25,12 +27,11 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      *Метод добавляет указанный элемен value.
      * Если длина массива меньше колличества элементов, то вызываем метод увеличивающий массив
      * Если размеры в нормальном диапозоне, то..
-     * @param value
      */
     @Override
     public void add(T value) {
         if (container.length <= size) {
-            enlargeContainer(container);
+            enlargeContainer();
         }
         container[size] = value;
         size++;
@@ -92,12 +93,13 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
            private int expectedModCount = modCount;
+           private int index = 0;
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return false;
+                return size > index;
 
             }
 
@@ -106,7 +108,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return container[size++];
+                return container[index++];
             }
         };
     }
