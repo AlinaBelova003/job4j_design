@@ -35,14 +35,21 @@ public class ForwardLinkedList<T> implements Iterable<T> {
     }
 
     /**
-     * Если следующая ссылка не равна нулю, то ..
+     * Если первого элемента  нет, то метод выбрасывает исключение.
+     * Сохраните ссылку на голову списка в промежуточной переменной tmp.
+     * Сохранякм значение головы в переменной tmp1.
+     * Затем обнуляем ссылки в первом узле и возвращяем ссылку на ...
+     *
      */
-    public void remove() {
-        Node<T> newKnot = head;
-        if (newKnot != null) {
-           head = head.next;
-
+    public T deleteFirst() {
+        if (head == null) {
+            throw new NoSuchElementException();
         }
+        Node<T> tmp = head.next;
+        T tmp1 = head.value;
+        tmp.value = null;
+        tmp.next = null;
+        return tmp1;
     }
 
     @Override
