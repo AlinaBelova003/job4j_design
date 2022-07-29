@@ -65,10 +65,11 @@ public class ForwardLinkedList<T> implements Iterable<T> {
             throw new NoSuchElementException();
         }
         Node<T> tmp = head.next;
-        T tmp1 = head.value;
+        tmp = head;
+        head = head.next;
         tmp.value = null;
         tmp.next = null;
-        return tmp1;
+        return tmp;
     }
 
     @Override
