@@ -36,21 +36,10 @@ public class ForwardLinkedList<T> implements Iterable<T> {
 
     /**
      * Добавляем новый элемент в начало
-     * Создаем новый узел.
-     * Если список пуст, то привязываем ссылки начала и конца на новый элемент
-     * Иначе новый элемент теперь ссылается на "бывший" первый
-     * Перезначаем указатель head на наш новый узел.
+     * Голова равняется новым узлом
      */
     public void firstAdd(T value) {
-        Node<T> node = new Node<T>(value, null);
-        if (head == null) {
-            head = node;
-            return;
-        } else {
-            node.next = head;
-            head = node;
-        }
-
+        head = new Node<>(value, head);
     }
 
     /** Удаление первого элемента
