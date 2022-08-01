@@ -3,6 +3,7 @@ package ru.job4j.collection;
 import org.w3c.dom.Node;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class ForwardLinkedList<T> implements Iterable<T> {
@@ -32,6 +33,32 @@ public class ForwardLinkedList<T> implements Iterable<T> {
             tail.next = tail;
         }
         tail.next = node;
+    }
+
+    /**
+     * Перевернуть список
+     * Если список не пуст или в нем содержиться не только один элемент, идем дальше
+     * При работе у нас есть три указателя: Предыдущий(head), Текущий(current) и Следующий(next) элемент.
+     * Создаём ссылку на текущий узел, который ссылается на предыдуший
+     * Последнийй элемент(предыдуший) не должен никуда ссылаться.
+     * Идем по списку пока текущий элемент не равен null.
+     * Сохраняем ссылку на следующий элемент, который ссылается на предыдуший(последний)
+     * Смещяем все указатели на один элемент и создаем обратную цепочку:
+     * next <- current <- head
+     */
+      public boolean revert() {
+           if (head != null && head.next != null) {
+            Node<T> current = head.next;
+            head.next = null;
+            while (current != null) {
+                Node<T> next = current.next;
+                current.next = head;
+                head = current;
+                current = next;
+            }
+
+        }
+        return false;
     }
 
     /**
