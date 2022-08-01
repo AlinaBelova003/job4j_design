@@ -15,19 +15,18 @@ public class SimpleQueue<T> {
 
     /**
      *  должен возвращать первое значение и удалять его из коллекции.
-     *  Перемещяем элемен в стопку in и удаляем его из прошлой стопки.
-     *  Счетчик стопки в которую мы добавили увеличивается
-     *  Из которой взяли уменьшается.
+     *  Перемещяем элементы из стопки out  в in.
+     *  Счетчик стопки в которую мы добавили уменьшается
+     *  Из которой взяли увеличивается
      */
     public T poll() {
-        if (out.isEmpty() && in.isEmpty()) {
+        if (countIn == 0 && countOut == 0) {
             throw new NoSuchElementException();
-        } else {
-            in.push(out.pop());
-            countIn++;
-            countOut--;
         }
-        return in.pop();
+            out.push(in.pop());
+            countIn--;
+            countOut++;
+            return out.pop();
     }
 
     /**
