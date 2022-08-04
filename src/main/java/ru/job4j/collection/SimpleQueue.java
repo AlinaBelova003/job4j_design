@@ -23,10 +23,16 @@ public class SimpleQueue<T> {
         if (countIn == 0 && countOut == 0) {
             throw new NoSuchElementException();
         }
-            out.push(in.pop());
-            countIn--;
-            countOut++;
-            return out.pop();
+
+        if (countOut == 0) {
+            while (countIn != 0) {
+                out.push(in.pop());
+                countOut++;
+                countIn--;
+            }
+            countOut--;
+        }
+        return out.pop();
     }
 
     /**
