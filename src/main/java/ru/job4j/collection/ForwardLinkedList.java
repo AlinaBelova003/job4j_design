@@ -55,6 +55,7 @@ public class ForwardLinkedList<T> implements Iterable<T> {
                 current.next = head;
                 head = current;
                 current = next;
+                return true;
             }
 
         }
