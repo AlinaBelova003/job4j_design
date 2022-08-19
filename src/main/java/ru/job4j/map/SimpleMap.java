@@ -3,6 +3,9 @@ package ru.job4j.map;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * В этом задании вам необходимо реализовать собственную мапу.
+ */
 public class SimpleMap<K, V> implements Map<K, V> {
     private static final float LOAD_FACTOR = 0.75f;
     private int capacity = 8;
@@ -28,6 +31,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(K key) {
+
         return null;
     }
 
@@ -58,7 +62,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean remove(K kay) {
-        return false;
+         boolean result = false;
+
+        return result;
     }
 
     /**
@@ -72,11 +78,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
              * Колличество модификаций списка
              */
             private final int expectedModCount = modCount;
-
+            int count1 = 0;
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new NoSuchElementException();
+                }
+                for (int i = 0; i < table.length; i++) {
+                    if (table[count1] == null) {
+                        // Как пропустить?
+                    }
                 }
                 return false;
             }
@@ -86,10 +97,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-               return
+                return table[count1].key;
             }
         };
-        return null;
     }
 
     public static class MapEntry<K, V> {
