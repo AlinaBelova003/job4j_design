@@ -31,29 +31,37 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(K key) {
-
-        return null;
+        V rsl = null;
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] != null && key.hashCode() == table[index].key.hashCode()) {
+            rsl = table[index].value;
+        }
+        return rsl;
     }
 
     /**
      * Определение хеша по ключю
      */
     private int hash(int hashCode) {
-        return 0;
+        return (hashCode == 0) ? 0 : (hashCode ^ (hashCode >>> 16));
     }
 
     private int indexFor(int hash) {
-        return 0;
+         return (capacity - 1) & hash;
     }
 
     /**
      * Метод расширяться при достижении значения LOAD_FACTOR=0.75
      */
     private void expand() {
-        if (table[capacity] == LOAD_FACTOR) {
-            capacity = capacity * 2;
-        }
+        MapEntry<K, V>[] newTable = new MapEntry[capacity * 2];
+        for (MapEntry i : table) {
+            if (i != null) {
+                int newIndex = indexFor(hash(i.key.hashCode()));
+                newTable[newIndex] = i;
 
+            }
+        }
     }
 
     /**
@@ -63,6 +71,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K kay) {
          boolean result = false;
+         int index = indexFor(hash(kay.hashCode()));
 
         return result;
     }
@@ -86,10 +95,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 }
                 for (int i = 0; i < table.length; i++) {
                     if (table[count1] == null) {
-                        // Как пропустить?
+                        count1++;
                     }
                 }
-                return false;
+                return count1 < count;
             }
 
             @Override
