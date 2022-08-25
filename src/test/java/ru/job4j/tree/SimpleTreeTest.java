@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SimpleTreeTest {
     @Test
     void when6ElFindLastThen6() {
-        Tree<Integer> tree = new SimpleTree<E>(1);
+        Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
         tree.add(1, 4);

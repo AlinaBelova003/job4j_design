@@ -7,8 +7,8 @@ import java.util.Queue;
 public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root;
 
-    public SimpleTree(Node<E> root) {
-        this.root = root;
+    public SimpleTree(final E root) {
+        this.root = new Node<>(root);
     }
 
     /**
