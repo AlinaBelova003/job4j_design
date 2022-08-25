@@ -18,22 +18,37 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     /**
      * Метод вставки put() в случае отсутствия места в ячейке должен возвращать false.
-     * @return
+     *  Сначала рассчитайте индекс по ключу, а затем проверьте ячейку по этому индексу. Если она пустая, то поместите в нее значение.
+     *  Передвигаем счетчики вперед
+     * @return результат, есть ли место в ячейки
      */
     @Override
     public boolean put(K key, V value) {
-        return false;
+        if (capacity == count) {
+            expand();
+        }
+        boolean result = false;
+        int bucket = hash(key.hashCode());
+        int index = indexFor(bucket);
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
+            count++;
+            modCount++;
+            result = true;
+        }
+        return result;
     }
 
     /**
      *  Метод get() в случае отсутствия значения должен возвращать null, в противном случае само значение.
-     *   В методах get() и remove() сравнение не-null ключей должно производиться сначала на равенство их хэшкодов, а только затем по equals().
+     *  Рассчитываем индекс и вызываем хеш-код у ключа
+     *  В методах get() и remove() сравнение не-null ключей должно производиться сначала на равенство их хэшкодов, а только затем по equals().
      */
     @Override
     public V get(K key) {
         V rsl = null;
         int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null && key.hashCode() == table[index].key.hashCode()) {
+        if (table[index] != null && key.hashCode() == table[index].key.hashCode() && key.equals(table[index].key)) {
             rsl = table[index].value;
         }
         return rsl;
@@ -59,9 +74,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
             if (i != null) {
                 int newIndex = indexFor(hash(i.key.hashCode()));
                 newTable[newIndex] = i;
-
             }
         }
+        table = newTable;
     }
 
     /**
@@ -72,13 +87,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K kay) {
          boolean result = false;
          int index = indexFor(hash(kay.hashCode()));
+         if (table[index] != null && kay.hashCode() == table[index].key.hashCode() && kay.equals(table[index].key)) {
+             table[index] = null;
+             result = true;
+         }
 
         return result;
     }
 
     /**
      * Итератор должен обладать fail-fast поведением
-     * @return
      */
     @Override
     public Iterator<K> iterator() {
@@ -98,7 +116,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                         count1++;
                     }
                 }
-                return count1 < count;
+                return count1 <= count;
             }
 
             @Override
