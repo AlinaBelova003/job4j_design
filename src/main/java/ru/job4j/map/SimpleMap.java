@@ -1,7 +1,9 @@
 package ru.job4j.map;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * В этом задании вам необходимо реализовать собственную мапу.
@@ -24,7 +26,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean put(K key, V value) {
-        if (capacity == count) {
+        if (capacity * LOAD_FACTOR >= count) {
             expand();
         }
         boolean result = false;
@@ -49,7 +51,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         V rsl = null;
         int index = indexFor(hash(key.hashCode()));
         if (table[index] != null && key.hashCode() == table[index].key.hashCode() && key.equals(table[index].key)) {
-            rsl = table[index].value;
+            table[index] = null;
+            count--;
+            modCount++;
         }
         return rsl;
     }
@@ -109,14 +113,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
-                    throw new NoSuchElementException();
+                    throw new ConcurrentModificationException();
                 }
-                for (int i = 0; i < table.length; i++) {
-                    if (table[count1] == null) {
-                        count1++;
-                    }
+                while (table[count1] == null && count1 < capacity) {
+                    count1++;
                 }
-                return count1 <= count;
+                return count1 <= capacity;
             }
 
             @Override
@@ -137,6 +139,23 @@ public class SimpleMap<K, V> implements Map<K, V> {
         public MapEntry(K key, V value) {
             this.key = key;
             this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            MapEntry<?, ?> mapEntry = (MapEntry<?, ?>) o;
+            return Objects.equals(key, mapEntry.key) && Objects.equals(value, mapEntry.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(key, value);
         }
     }
 }
