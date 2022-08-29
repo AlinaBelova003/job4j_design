@@ -26,12 +26,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean put(K key, V value) {
-        if (capacity * LOAD_FACTOR >= count) {
+        if (capacity * LOAD_FACTOR <= count) {
             expand();
         }
         boolean result = false;
         int bucket = hash(key.hashCode());
         int index = indexFor(bucket);
+        if (table[index] != null) {
+            return false;
+        }
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             count++;
@@ -42,6 +45,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     /**
+     *  Принимает поисковый ключ, затем по поисковому ключу рассчитываете индекс ячейки, обращаетесь в эту ячейку,
+     *  извлекаете значение  хранящегося ключа, сравниваете ключи, и если они одинаковые, то метод возвращает значение из ячейки.
+     *  Если ключи не одинаковые, то метод возвращает null. При проверке ключей надо учесть, что в ячейке может быть ключ null.
      *  Метод get() в случае отсутствия значения должен возвращать null, в противном случае само значение.
      *  Рассчитываем индекс и вызываем хеш-код у ключа
      *  В методах get() и remove() сравнение не-null ключей должно производиться сначала на равенство их хэшкодов, а только затем по equals().
@@ -50,10 +56,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public V get(K key) {
         V rsl = null;
         int index = indexFor(hash(key.hashCode()));
+        if (table[index] == null) {
+            return null;
+        }
         if (table[index] != null && key.hashCode() == table[index].key.hashCode() && key.equals(table[index].key)) {
-            table[index] = null;
-            count--;
-            modCount++;
+            rsl = table[index].value;
         }
         return rsl;
     }
@@ -91,8 +98,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K kay) {
          boolean result = false;
          int index = indexFor(hash(kay.hashCode()));
+         if (table[index] == null) {
+             return false;
+         }
          if (table[index] != null && kay.hashCode() == table[index].key.hashCode() && kay.equals(table[index].key)) {
              table[index] = null;
+             count--;
              result = true;
          }
 
@@ -115,10 +126,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (table[count1] == null && count1 < capacity) {
+                while (count1 < capacity && table[count1] == null) {
                     count1++;
                 }
-                return count1 <= capacity;
+                return count1 < capacity;
             }
 
             @Override
@@ -126,7 +137,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return table[count1].key;
+
+                return table[count1++].key;
             }
         };
     }
