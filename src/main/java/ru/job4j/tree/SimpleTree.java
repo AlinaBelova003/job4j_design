@@ -33,16 +33,17 @@ public class SimpleTree<E> implements Tree<E> {
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-
+        Predicate<Node<E>>  conditional = x -> x.value.equals(value);
+        return findByPredicate(conditional);
     }
 
     /**
      * Метод проверяет,что дерево бинарное
-     * @return
+     * @return  если пустое значение - то дерево бинарное, если нет - то дерево небинарное
      */
     public boolean isBinary() {
         Predicate<Node<E>> conditional = x -> x.children.size() > 2;
-        return findByPredicate(conditional);
+        return findByPredicate(conditional).isEmpty();
     }
 
     private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
