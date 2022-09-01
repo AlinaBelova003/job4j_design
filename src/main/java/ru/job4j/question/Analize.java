@@ -22,7 +22,6 @@ public class Analize {
                 .collect(Collectors.toMap(User:: getId, User::getName));
         int addCount = 0;
         int changeCount = 0;
-        int deleteCount = 0;
 
         for (User user : current) {
             if (!map.containsKey(user.getId())) {
@@ -30,8 +29,9 @@ public class Analize {
             } else if (!map.equals(user.getName()) && map.equals(user.getId())) {
                 changeCount++;
             }
-
         }
-        return diff(addCount, changeCount);
+            int delete = current.size() - previous.size() + addCount;
+
+        return diff(addCount, changeCount, delete);
     }
 }
