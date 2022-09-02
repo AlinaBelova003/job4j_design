@@ -26,12 +26,12 @@ public class Analize {
         for (User user : current) {
             if (!map.containsKey(user.getId())) {
                 addCount++;
-            } else if (!map.equals(user.getName()) && map.equals(user.getId())) {
+            } else if (!map.get(user.getId()).equals(user.getName())) {
                 changeCount++;
             }
         }
-            int delete = current.size() - previous.size() + addCount;
+            int delete = previous.size() - current.size() + addCount;
 
-        return diff(addCount, changeCount, delete);
+        return new Info(addCount, changeCount, delete);
     }
 }
