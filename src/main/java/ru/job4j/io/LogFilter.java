@@ -47,10 +47,7 @@ public class LogFilter {
     }
 
     public static void main(String[] args) {
-        LogFilter logFilter = new LogFilter();
-        List<String> log = logFilter.filter("log.txt");
-        for (String s : log) {
-            System.out.println(s);
-        }
+        List<String> log = filter("log.txt");
+        save(log, "404.txt");
     }
 }
