@@ -19,22 +19,27 @@ public class Config {
     }
 
     /**
-     * Должен считать все ключи в карту values.Метод load должен загружать пару ключ-значение в Map values.
+     * Должен считать все ключи в карту values.
+     * Метод load должен загружать пару ключ-значение в Map values.
+     *
      */
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
-            for (String i : reader.lines().toList()) {
+            for (String line : reader.lines().toList()) {
+                String[] array = line.split("=");
+                String kay = array[0];
+                String value = array[1];
+                values.put(kay, value);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public String value(String key) {
-        throw new UnsupportedOperationException("Don't impl this method yet!");
+       return values.get(key);
     }
 
     @Override
@@ -49,7 +54,9 @@ public class Config {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Config("./data/app.properties"));
+        System.out.println(new Config("./data/app.properties.txt"));
+
+
     }
 
 }

@@ -6,7 +6,7 @@ class ConfigTest {
 
     @Test
     void whenPairWithoutComment() {
-        String path = "./data/pair_without_comment.properties";
+        String path = "./data/pair_without_comment.properties.txt";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name")).isEqualTo("Petr Arsentev");
@@ -14,7 +14,7 @@ class ConfigTest {
 
     @Test
     void whenProperties() {
-        String path = ".data/app.properties";
+        String path = "./data/app.properties.txt";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name")).isEqualTo("Alina");
