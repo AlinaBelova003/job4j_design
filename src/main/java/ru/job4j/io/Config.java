@@ -26,6 +26,7 @@ public class Config {
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             for (String line : reader.lines().toList()) {
+                validate(line);
                 String[] array = line.split("=");
                 String kay = array[0];
                 String value = array[1];
@@ -35,6 +36,12 @@ public class Config {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void validate(String line) {
+        if (line.contains("=") || !line.startsWith("=") || line.endsWith("=")) {
+            throw new IllegalArgumentException();
         }
     }
 
