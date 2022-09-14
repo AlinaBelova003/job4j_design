@@ -27,7 +27,7 @@ public class Config {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             for (String line : reader.lines().toList()) {
                 validate(line);
-                String[] array = line.split("=");
+                String[] array = line.split("=", 2);
                 String kay = array[0];
                 String value = array[1];
                 values.put(kay, value);
@@ -40,8 +40,8 @@ public class Config {
     }
 
     private static void validate(String line) {
-        if (line.contains("=") || !line.startsWith("=") || line.endsWith("=")) {
-            throw new IllegalArgumentException();
+        if (line.contains("=") || line.startsWith("=") || line.indexOf("=") == line.length() - 1)  {
+            throw new IllegalArgumentException("Ошибка в выражение ключь - значение: " + line);
         }
     }
 

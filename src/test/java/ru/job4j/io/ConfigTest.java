@@ -17,7 +17,30 @@ class ConfigTest {
         String path = "./data/app.properties.txt";
         Config config = new Config(path);
         config.load();
+        assertThat(config.value("username")).isEqualTo("Alina");
+    }
+
+    @Test
+    void whenKayWithoutValue() {
+        String path = "./data/kayWithoutValue.txt";
+        Config config = new Config(path);
+        config.load();
         assertThat(config.value("name")).isEqualTo("Alina");
+    }
+
+    @Test
+    void whenIsEmptyProperties() {
+        String path = "./data/isEmpty.properties.txt";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test
+    void whenKayAndValueAnd1() {
+        String path = "./data/kayValue=1.txt";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("name")).isEqualTo("Alina=1");
     }
 
 }
