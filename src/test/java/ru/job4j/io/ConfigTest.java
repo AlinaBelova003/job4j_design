@@ -25,7 +25,6 @@ class ConfigTest {
         String path = "./data/kayWithoutValue.txt";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("name")).isEqualTo("Alina");
     }
 
     @Test
@@ -33,6 +32,7 @@ class ConfigTest {
         String path = "./data/isEmpty.properties.txt";
         Config config = new Config(path);
         config.load();
+
     }
 
     @Test
@@ -42,5 +42,4 @@ class ConfigTest {
         config.load();
         assertThat(config.value("name")).isEqualTo("Alina=1");
     }
-
 }
