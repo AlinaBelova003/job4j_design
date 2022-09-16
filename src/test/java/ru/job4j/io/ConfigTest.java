@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.*;
 class ConfigTest {
 
@@ -25,6 +26,7 @@ class ConfigTest {
         String path = "./data/kayWithoutValue.txt";
         Config config = new Config(path);
         config.load();
+        assertThat(config.value("name")).isEqualTo(null);
     }
 
     @Test

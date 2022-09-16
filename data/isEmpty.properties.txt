@@ -1,1 +1,5 @@
+# PostgreSQL
+hibernate.connection.driver_class=org.postgresql.Driver
+hibernate.connection.username=postgres
+hibernate.connection.password=password
 =

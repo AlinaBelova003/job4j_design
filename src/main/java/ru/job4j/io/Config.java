@@ -26,12 +26,15 @@ public class Config {
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             for (String line : reader.lines().toList()) {
-                line = reader.readLine();
+                if (line.isBlank() || line.startsWith("#")) {
+                    continue;
+                }
                 validate(line);
                 String[] array = line.split("=", 2);
                 String kay = array[0];
                 String value = array[1];
                 values.put(kay, value);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +42,7 @@ public class Config {
     }
 
     private static void validate(String line) {
-        if (!line.contains("=") || line.startsWith("=") || line.indexOf("=") == line.length() - 1)  {
+        if (!line.contains("=") || line.startsWith("=")  || line.indexOf("=") == line.length() - 1)  {
             throw new IllegalArgumentException("Ошибка в выражение ключь - значение: " + line);
         }
     }
