@@ -26,14 +26,13 @@ public class Config {
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             for (String line : reader.lines().toList()) {
+                line = reader.readLine();
                 validate(line);
                 String[] array = line.split("=", 2);
                 String kay = array[0];
                 String value = array[1];
                 values.put(kay, value);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
