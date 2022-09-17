@@ -43,7 +43,7 @@ public class Config {
 
     private static void validate(String line) {
         if (!line.contains("=") || line.startsWith("=")  || line.indexOf("=") == line.length() - 1)  {
-            throw new IllegalArgumentException("Ошибка в выражение ключь - значение: " + line);
+            throw new IllegalArgumentException(String.format("Ошибка в выражение ключь - значение: %s", line));
         }
     }
 

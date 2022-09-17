@@ -25,16 +25,18 @@ class ConfigTest {
     void whenKayWithoutValue() {
         String path = "./data/kayWithoutValue.txt";
         Config config = new Config(path);
-        config.load();
-        assertThat(config.value("name")).isEqualTo(null);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("name=");
     }
 
     @Test
     void whenIsEmptyProperties() {
         String path = "./data/isEmpty.properties.txt";
         Config config = new Config(path);
-        config.load();
-
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("=");
     }
 
     @Test
