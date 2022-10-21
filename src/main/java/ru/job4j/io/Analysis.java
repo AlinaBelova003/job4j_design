@@ -1,9 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 
 public class Analysis {
@@ -16,6 +13,10 @@ public class Analysis {
         try (BufferedReader reader = new BufferedReader(new FileReader(sours))) {
             List<String> list = reader.lines().toList();
             writeTarget(target);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -26,6 +27,8 @@ public class Analysis {
     public void writeTarget(String target) {
         try (PrintWriter print = new PrintWriter(new FileOutputStream(target))) {
             validate(target);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }

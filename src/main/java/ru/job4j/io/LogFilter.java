@@ -21,8 +21,7 @@ public class LogFilter {
      */
     public static List<String> filter(String file)  {
         List<String> list = new ArrayList<>();
-        try (FileReader reader = new FileReader(file);
-             BufferedReader in = new BufferedReader(reader)) {
+        try (BufferedReader in = new BufferedReader(new FileReader("log.txt"))) {
             for (String line : in.lines().toList()) {
                 String[] array = line.split(" ");
                 if ((array[array.length - 2]).contains("404")) {
