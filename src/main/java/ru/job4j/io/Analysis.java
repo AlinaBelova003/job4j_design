@@ -28,13 +28,13 @@ public class Analysis {
      */
     private static void validate(String target, List<String> list) {
         try (PrintWriter print = new PrintWriter(new FileOutputStream(target))) {
-            boolean status = true;
             for (String line : list) {
-                if (line.startsWith("400") || line.startsWith("500") && status == true) {
+                boolean status = true;
+                if (line.startsWith("400") || line.startsWith("500") && status) {
                     line = target;
                     print.write(target);
                     status = false;
-                } else if (line.startsWith("200") || line.startsWith("300") && status == false) {
+                } else if (line.startsWith("200") || line.startsWith("300") && !status) {
                   line = target;
                   print.write(target);
                   status = true;
