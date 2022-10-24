@@ -15,24 +15,18 @@ public class Analysis {
         try (BufferedReader reader = new BufferedReader(new FileReader(sours))) {
             try (PrintWriter print = new PrintWriter(new FileOutputStream(target))) {
                 boolean status = true;
-                List<String> list = reader.lines().toList();
-                for (String line : list) {
+                for (String line = reader.readLine(); line != null && !line.isEmpty(); line = reader.readLine()) {
                     if ((line.startsWith("400") || line.startsWith("500")) && status) {
-                        String[] array = line.split(" ");
-                        print.append(array[1]).append(";").append(System.lineSeparator());
-                        print.write(line.substring(4));
+                        print.print(line.substring(4));
+                        print.write(";");
                         status = false;
                     } else if ((line.startsWith("200") || line.startsWith("300")) && !status) {
-                        String[] array = line.split(" ");
-                        print.append(array[1]).append("; ").append(System.lineSeparator());
-                        print.write(line.substring(4));
+                        print.println(line.substring(4));
                         status = true;
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
