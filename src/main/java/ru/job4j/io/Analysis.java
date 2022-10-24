@@ -21,7 +21,8 @@ public class Analysis {
                         print.write(";");
                         status = false;
                     } else if ((line.startsWith("200") || line.startsWith("300")) && !status) {
-                        print.println(line.substring(4));
+                        print.print(line.substring(4));
+                        print.println(";");
                         status = true;
                     }
                 }
