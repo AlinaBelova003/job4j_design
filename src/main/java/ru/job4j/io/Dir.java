@@ -15,10 +15,11 @@ public class Dir {
         }
 
         System.out.println(String.format("size : %s", file.getTotalSpace()));
-        System.out.println(String.format("name : %s", file.getName()));
-        System.out.println(String.format("length : %s", file.length()));
+
         for (File subfile : file.listFiles()) {
             System.out.println(subfile.getAbsoluteFile());
+            System.out.println(String.format("name : %s", file.getName()));
+            System.out.println(String.format("length : %s", file.length()));
         }
     }
 }
