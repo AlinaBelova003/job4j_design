@@ -7,15 +7,14 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-       Path start = Paths.get("c:\\");
-       Files.walkFileTree(start, new SearchFiles());
+       Path start = Paths.get("C:\\Users\\alina\\OneDrive\\Рабочий стол\\Потоки ввода -вывода");
+       search(start, p -> p.toFile().getName().endsWith(".docx")).forEach(System.out::println);
     }
-    public static List<Path> search(Path root, Predicate<Path> condition) {
+
+    public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         SearchFiles searcher = new SearchFiles(condition);
         Files.walkFileTree(root, searcher);
-        return searcher.getPaths();
+        return searcher.getPath();
     }
-
-
 
 }
