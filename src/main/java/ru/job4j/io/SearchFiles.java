@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  * Path — это переработанный аналог класса File, с помощью которого можно управлять файлами на диске компьютера
  */
 public class SearchFiles implements FileVisitor<Path> {
-    List<Path> paths = new ArrayList<>();
+    private List<Path> paths = new ArrayList<>();
     private Predicate<Path> conditional;
 
     SearchFiles(Predicate<Path> conditional) {
