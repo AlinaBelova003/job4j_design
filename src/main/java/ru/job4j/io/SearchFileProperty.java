@@ -8,16 +8,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class SearchFileProperty extends SimpleFileVisitor {
-    private List<String> list = new ArrayList<>();
-    private Map<Long, String> map = new HashMap<>();
+    private Map<FileProperty, List<Path>> map = new HashMap<>();
 
     @Override
-        public FileVisitResult visitFile(Object file, BasicFileAttributes attrs) throws IOException {
-            FileProperty fileProperty = new FileProperty();
-            if (!list.contains(fileProperty)) {
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            FileProperty fileProperty = new FileProperty(file.toFile().length(), file.toFile().getName());
+            if (!map.containsKey(fileProperty)) {
                 map.put(fileProperty, new ArrayList<>());
-            } else if (list.contains(fileProperty)) {
-                list.add("Как добавить путь?");
+            } else if (map.containsKey(fileProperty)) {
+                map.get(fileProperty).add(file);
             }
             return super.visitFile(file, attrs);
         }
