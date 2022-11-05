@@ -1,0 +1,18 @@
+for (int i = 0; i < table.length; i++) {
+                    if (table[count1] == null) {
+                        count1++;
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+table[index] = null;
+            count--;
+            modCount++;

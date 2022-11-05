@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 public class Search {
     public static void main(String[] args) throws IOException {
         validate(args);
-       Path start = Paths.get(args[0]);
+       Path start = Paths.get("C:\\projects\\job4j_design\\detatest.txt");
        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
@@ -23,19 +23,20 @@ public class Search {
         }
         File file = new File(args[0]);
         if (!file.exists()) {
-            throw new IllegalArgumentException(String.format("Проверьте, что файл по этому пути существует %s", file.getAbsolutePath()));
+            throw new IllegalArgumentException(String.format("Проверьте, что файл по этому пути существует %s", args[0]));
         }
 
         if (!file.isDirectory()) {
-            throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл %s", file.getAbsoluteFile()));
+            throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл %s", args[0]));
+        }
+        if (!args[1].startsWith("."))  {
+            throw new IllegalArgumentException("Параметр не начитнается с . /s", args[0]);
         }
 
         if (args[1].length() < 2) {
-            throw new IllegalArgumentException("Введите ещё один аргумент");
+            throw new IllegalArgumentException("Расщирение не может состоять менее из двух символов");
         }
-        if (!args[1].startsWith(".")) {
-            throw new IllegalArgumentException("Неправильно указан путь. Сделайте проверку, что строка начинается с точки");
-        }
+
 
     }
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
