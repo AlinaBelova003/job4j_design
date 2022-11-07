@@ -24,6 +24,7 @@ public class Search {
         File file = new File(args[0]);
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Проверьте, что файл по этому пути существует %s", args[0]));
+
         }
 
         if (!file.isDirectory()) {
@@ -31,10 +32,12 @@ public class Search {
         }
         if (!args[1].startsWith("."))  {
             throw new IllegalArgumentException(String.format("Параметр не начитнается с . %s", args[0]));
+
         }
 
         if (args[1].length() < 2) {
             throw new IllegalArgumentException(String.format("Расщирение не может состоять менее из двух символов: %s", args[0]));
+
         }
 
 
