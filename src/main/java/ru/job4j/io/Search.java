@@ -30,11 +30,11 @@ public class Search {
             throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл %s", args[0]));
         }
         if (!args[1].startsWith("."))  {
-            throw new IllegalArgumentException("Параметр не начитнается с . /s", args[0]);
+            throw new IllegalArgumentException(String.format("Параметр не начитнается с . /s", args[0]));
         }
 
         if (args[1].length() < 2) {
-            throw new IllegalArgumentException("Расщирение не может состоять менее из двух символов");
+            throw new IllegalArgumentException(String.format("Расщирение не может состоять менее из двух символов: %s", args[0]));
         }
 
 
