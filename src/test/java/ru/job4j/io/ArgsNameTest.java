@@ -36,14 +36,14 @@ class ArgsNameTest {
 
     @Test
     void whenWrongArgumentValue() {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx="});
-        assertThatThrownBy(() -> jvm.get("Xmx")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"-Xmx="}))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
      @Test
     void whenWrongArgumentKey() {
-        ArgsName jvm = ArgsName.of(new String[] {"=512"});
-        assertThatThrownBy(() -> jvm.get(null)).isInstanceOf(IllegalArgumentException.class);
+       assertThatThrownBy(() -> ArgsName.of(new String[] {"=512"}))
+               .isInstanceOf(IllegalArgumentException.class);
      }
 
      @Test
