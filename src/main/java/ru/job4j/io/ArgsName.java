@@ -30,12 +30,6 @@ public class ArgsName {
             throw new IllegalArgumentException(
                     String.format("this name: %s does not start with - ", line));
         }
-
-        String[] args = line.split("=", 2);
-        if (args[0].isBlank() && args[1].isBlank()) {
-            throw new IllegalArgumentException(
-                    String.format("Don't key or value %s", line));
-        }
         if (line.indexOf("=") == line.length() - 1) {
             throw new IllegalArgumentException(
                     String.format("this name: %s does not contain a value", line));
@@ -47,7 +41,6 @@ public class ArgsName {
      *
      */
     public void parse(String[] args) {
-        validateLength(args);
         for (String line : args) {
             validate(line);
             String[] split = line.split("=", 2);
