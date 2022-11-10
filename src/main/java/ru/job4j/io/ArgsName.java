@@ -10,6 +10,9 @@ public class ArgsName {
      * Получение ключа из словаря
      */
     public String get(String key) {
+        if (!value.containsKey(key)) {
+            throw new IllegalArgumentException("No element with this key" + key);
+        }
         return value.get(key);
     }
 
@@ -18,15 +21,24 @@ public class ArgsName {
             throw new IllegalArgumentException();
         }
     }
-    private static void validateSymbol(String args) {
-        if (args.startsWith("-") && args.contains("=")) {
-            throw new IllegalArgumentException("Don't symbol - or =");
+    private static void validate(String line) {
+        if (!line.contains("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not contain the symbol \"=\"", line));
         }
-    }
-    private static void validateKeyValue(String args) {
-        String[] line = args.split("=", 2);
-        if (line[0].isBlank() && line[1].isEmpty()) {
-            throw new IllegalArgumentException("Don't key or value");
+        if (!line.startsWith("-")) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not start with - ", line));
+        }
+
+        String[] args = line.split("=", 2);
+        if (args[0].isBlank() && args[1].isBlank()) {
+            throw new IllegalArgumentException(
+                    String.format("Don't key or value %s", line));
+        }
+        if (line.indexOf("=") == line.length() - 1) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not contain a value", line));
         }
     }
 
@@ -36,8 +48,11 @@ public class ArgsName {
      */
     public void parse(String[] args) {
         validateLength(args);
-        validateSymbol(args);
-        validateKeyValue(args);
+        for (String line : args) {
+            validate(line);
+            String[] split = line.split("=", 2);
+            value.put(split[0].substring(1), split[1]);
+        }
     }
 
     /**
@@ -45,6 +60,7 @@ public class ArgsName {
      * В результате обработанные данные помещаются в объект names и их затем можно будет извлечь по запросу names.get()
      */
     public static ArgsName of(String[] args) {
+        validateLength(args);
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
