@@ -67,6 +67,7 @@ public class ArgsName {
     public static void main(String[] args) {
         ArgsName jvs = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvs.get("Xmx"));
+        ArgsName argsName = ArgsName.of(args);
     }
 
 }
