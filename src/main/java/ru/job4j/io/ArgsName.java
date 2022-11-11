@@ -30,6 +30,11 @@ public class ArgsName {
             throw new IllegalArgumentException(
                     String.format("this name: %s does not start with - ", line));
         }
+        if (line.startsWith("-=")) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s contain kay ", line)
+            );
+        }
         if (line.indexOf("=") == line.length() - 1) {
             throw new IllegalArgumentException(
                     String.format("this name: %s does not contain a value", line));
