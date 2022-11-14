@@ -63,9 +63,10 @@ public class Zip {
             e.printStackTrace();
         }
     }
-    private void validate(ArgsName args) {
+   private void validate(ArgsName args) {
        ArgsName argsName = ArgsName.of(args);
-        if () {
+       File file = new File(argsName);
+        if (!file.isDirectory()) {
             throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл %s", args[0]));
         }
         if (!argsName.get(exclude).startsWith(".") && exclude.length() < 2) {
