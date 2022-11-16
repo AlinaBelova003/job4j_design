@@ -10,7 +10,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Архивация проекта
+ * Архивация проекта - это процесс создания архива путем упаковывания в него файлов.
  */
 public class Zip {
     /**
@@ -57,35 +57,41 @@ public class Zip {
             try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(sours))) {
                 zip.write(out.readAllBytes());
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
-   private void validate(ArgsName args) {
-       ArgsName argsName = ArgsName.of(args);
-       File file = new File(argsName);
+   private static void validate(ArgsName args) {
+       File file = new File(args.get(directory));
         if (!file.isDirectory()) {
-            throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл %s", args[0]));
+            throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл: %s ", file.getAbsolutePath()));
         }
-        if (!argsName.get(exclude).startsWith(".") && exclude.length() < 2) {
+        if (!args.get(exclude).startsWith(".") && exclude.length() < 2) {
             throw new IllegalArgumentException("Аргумент 'e' должен начинаться с точки!");
         }
-        if (argsName.get(output).endsWith(".zip")) {
+        if (args.get(output).endsWith(".zip")) {
             throw new IllegalArgumentException("Аргумент должен иметь расширение .zip");
         }
     }
-    public static void main(String[] args) {
+
+    /**
+     * @param args маассив
+     * @throws IOException search требует
+     */
+    public static void main(String[] args) throws IOException {
         if (args.length != 3) {
             throw new IllegalArgumentException(
-                    String.format("Не то колличество переданных параметров: %s", args));
+                    String.format("Не то колличество переданных параметров: %s", args.length));
         }
+        ArgsName argsName = ArgsName.of(args);
+        validate(argsName);
+        List<Path> list = Search.search(Paths.get(argsName.get("d")),
+                path -> !path.toFile().getName().endsWith(argsName.get("e")));
         Zip zip = new Zip();
         zip.packSingleFile(
                 new File("./pom.xml"),
                 new File("./pom.zip")
         );
-
+        zip.packFiles(list, new File(argsName.get("o")));
     }
 }
