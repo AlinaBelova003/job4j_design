@@ -25,19 +25,23 @@ public class ConsoleChat {
 
     /**
      * Описание общей логики чата
-     *
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String answerUser = scanner.toString();
-        if (answerUser.contains(OUT)) {
-            System.out.println(" при вводе слова «закончить» программа прекращает работу.");
-        } else if (answerUser.contains(STOP)) {
-            System.out.println("программа замолкает если пользователь вводит слово «стоп», при этом он может продолжать отправлять сообщения в чат.");
-        } else if (answerUser.contains(CONTINUE)) {
-            System.out.println("если пользователь вводит слово «продолжить», программа снова начинает отвечать.");
+        List<String> log = new ArrayList<>();
+        while (!answerUser.contains(OUT)) {
+            if (answerUser.contains(STOP)) {
+                log.add(answerUser);
+                answerUser = scanner.nextLine();
+            } else if (answerUser.contains(CONTINUE)) {
+                log.add(answerUser);
+                answerUser = scanner.nextLine();
+            }
+            log.add(answerUser);
+            break;
         }
-
+        saveLog(log);
     }
 
     /**
