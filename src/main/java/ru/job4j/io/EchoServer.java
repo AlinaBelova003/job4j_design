@@ -10,6 +10,7 @@ import java.net.Socket;
  * ServerSocket нужен только на этапе создания клиетского сокета. Выбираем порт, к которому будем подключаться и ждем клиента
  * Как только клиент успешно подключился(accept), возвращяем объект сокета
  * Открываем поток с которого будем отправлять инфор. и поток куда будем записывать в HTTP формате(путь, версия, состояние)
+ * Если мы запускаем строчку Bye, то выходим из сервера(разрываем соединение)
  * Читаем поток
  * flush() - дает горантию, что вся информация записана
  */
@@ -21,6 +22,10 @@ public class EchoServer {
                try (OutputStream out = socket.getOutputStream()) {
                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                    out.write("HTTP/1.1 200 OK\\r\\n\\r\\n".getBytes());
+                   String line = in.readLine();
+                   if (line.contains("/?msg=Bye")) {
+                       server.close();
+                   }
                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                        System.out.println(str);
                    }
