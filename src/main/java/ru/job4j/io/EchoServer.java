@@ -26,9 +26,9 @@ public class EchoServer {
                    if (line.contains("/?msg=Exit")) {
                        out.write("Завершить хост".getBytes());
                        server.close();
-                   } else if (line.contains("Hello")) {
-                       System.out.println("Hello, dear friend");
-                       out.write("/?msg=Hello".getBytes());
+                   } else if (line.contains("/?msg=Hello")) {
+                       System.out.println("Hello");
+                       out.write("Hello".getBytes());
                    } else if (line.contains("/?msg=Any")) {
                        System.out.println("What?");
                        out.write("What".getBytes());
