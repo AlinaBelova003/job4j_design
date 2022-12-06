@@ -25,7 +25,7 @@ public class UsageLog4j {
         char xs = 'a';
         LOG.debug("User info name: {}, age: {}, months spent on the course job4j: {}, "
                 + " months spent on the everything programming: {}, hours: {} , level motivation: {},"
-                + "i will finish in {}, i want to be a developer: {}, хз: ", name, age, monthCourse, monthEverything, hours, motivation, finish, beDeveloper, xs);
+                + "i will finish in {}, i want to be a developer: {}, хз: {} ", name, age, monthCourse, monthEverything, hours, motivation, finish, beDeveloper, xs);
 
     }
 }
