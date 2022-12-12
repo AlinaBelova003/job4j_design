@@ -20,7 +20,7 @@ public class Main {
                 + "{"
                 + "\"phone\":\"7(924)111-111-11-11\""
                 + "},"
-                + "\"statuses\":"
+                + "\"status\":"
                 + "[\"Student\", \"Free\"]"
                 + "}";
 
