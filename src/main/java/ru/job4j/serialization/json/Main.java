@@ -3,6 +3,8 @@ package ru.job4j.serialization.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.Callable;
+
 public class Main {
     public static void main(String[] args) {
         Person person = new Person(false, 30, new Contact("11- 111"), new String[] {"Student,Married"});
@@ -26,5 +28,13 @@ public class Main {
 
         final Person personMod = gson.fromJson(personJson, Person.class);
         System.out.println(personMod);
+        /**
+         * Пример для демонстрации записи в XML формате.
+         * XML - инструмет для хранения и передачи данных, обернутый в теги
+         */
+        Cat cat = new Cat("Barsik", 5, false, new Contact("7(924) - 866-66-66"), new
+                String[] {"Smart, Lazy"});
+        final Gson gson1 = new GsonBuilder().create();
+        System.out.println(gson1.toJson(cat));
     }
 }
