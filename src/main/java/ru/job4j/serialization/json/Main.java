@@ -2,12 +2,20 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
 
 public class Main {
     public static void main(String[] args) {
         Person person = new Person(false, 30, new Contact("11- 111"), new String[] {"Student,Married"});
+        /**
+         * JSONObject преобразовываем в строку
+         * Преобразуем объект person в json-строку
+         */
+        JSONObject convert = new JSONObject("{\"phone\":\"+7(924)111-111-11-11\"}");
+        System.out.println(convert.toString());
+        System.out.println(new JSONObject(person).toString());
 
         /* Преобразуем объект person в json-строку. */
         final Gson gson = new GsonBuilder().create();
