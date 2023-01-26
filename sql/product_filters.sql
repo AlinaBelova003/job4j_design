@@ -43,8 +43,8 @@ where p.name LIKE '%мороженое%';
 select p.name from product as p
 where expired_date < NOW();
 
-select * from product as p
-ORDER BY p.price DESC;
+select p.name from product as p
+where p.price = (select max(p.price) from product as p);
 
 select t.name, count(p.id) from type as t
 join product as p 
