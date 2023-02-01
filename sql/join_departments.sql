@@ -1,4 +1,4 @@
-create table departments (
+create table departments(
 id serial primary key,
 name_department varchar(255)
 );
@@ -36,8 +36,8 @@ insert into employees(name_emploees, departments_id) values
 ('Арт', 2),
 ('Бугалтерия', 3),
 ('Экономика и прогнозы', 3),
-('Водители', 4),
-('Логистика', 4);
+('Водители', 5),
+('Логистика', 5);
 
 select * from employees as e left join departments as d 
 on e.departments_id = d.id;
@@ -50,14 +50,14 @@ on e.departments_id = d.id;
 
 select * from employees as e cross join departments as d; 
 
-select * from departments as d, count(e.id) join employees as e
-on d.id = e.departments_id
-where d.name_department is null;
+select distinct d.name_department from departments as d left join employees as e
+on d.id = e.departments_id where e.departments_id is null;
 
-select * from employees as e left join departments as d 
+select distinct e.name_emploees, d.name_department from employees as e left join departments as d 
 on e.departments_id = d.id;
 
-select * from departments as d right join employees as e
+select distinct e.name_emploees, d.name_department from departments as d right join employees as e
 on d.id = e.departments_id;
 
-select * from teens as teens1 cross join teens as teens2;
+select distinct * from teens as teens1 cross join teens as teens2
+where teens1.gender <> teens2.gender;
