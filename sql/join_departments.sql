@@ -50,14 +50,14 @@ on e.departments_id = d.id;
 
 select * from employees as e cross join departments as d; 
 
-select distinct d.name_department from departments as d left join employees as e
+select d.name_department from departments as d left join employees as e
 on d.id = e.departments_id where e.departments_id is null;
 
-select distinct e.name_emploees, d.name_department from employees as e left join departments as d 
+select e.name_emploees, d.name_department from employees as e left join departments as d 
 on e.departments_id = d.id;
 
-select distinct e.name_emploees, d.name_department from departments as d right join employees as e
+select e.name_emploees, d.name_department from departments as d right join employees as e
 on d.id = e.departments_id;
 
-select distinct * from teens as teens1 cross join teens as teens2
+select * from teens as teens1 cross join teens as teens2
 where teens1.gender <> teens2.gender;
