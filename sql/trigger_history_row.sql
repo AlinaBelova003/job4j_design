@@ -9,11 +9,11 @@ create or replace function insert_new_volume_table()
  returns trigger as
  $$
  Begin
-     insert into history_of_price(name, price, timestamp) Values
-     (new.name, new.price, new.timestamp);
+     insert into history_of_price(name, price, date) Values
+     (new.name, new.price, now.date);
     return new;
  End;
- $$
+ $$ 
  LANGUAGE 'plpgsql';
  
  create trigger insert_new_volume_table_trigger

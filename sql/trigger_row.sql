@@ -17,7 +17,7 @@ returns trigger as
 $$
     BEGIN
 	  update products
-	  set price = price - price * 0.2
+	  set price = price - (price * 0.2)
 	  where count <= 5 AND id = new.id;
 	  return NEW;
 	END;
@@ -40,7 +40,7 @@ return trigger as
 $$
   Begin
   update products
-  set price = price - price + 0.13
+  set price = price + (price * 0.13)
   where id = new.id;
   return new;
   END;
@@ -51,7 +51,7 @@ create or replace function tax_13()
 $$
   Begin
   update products
-  set price = price - price + 0.13
+  set price = price + (price + 0.13)
   where id = new.id;
   return new;
   END;

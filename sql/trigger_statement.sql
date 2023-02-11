@@ -21,7 +21,7 @@ returns trigger as
 $$
     Begin
 update products
-set price = price - price + 0.13
+set price = price + (price * 0.13)
 where id = (select id from inserted);
 return new;
     End;
