@@ -42,7 +42,7 @@ select f_update_date(0, 0.2, 0);
 select * from products;
 
 
-create or replace function f_delete(d_count integer, producer varchar, d_id integer) 
+create or replace function f_delete(producer varchar, d_id integer)
 returns varchar
 language 'plpgsql'
 as
@@ -50,7 +50,7 @@ $$
     declare
         result integer;
     begin
-	  delete from products as p where d_count < 10 and id = d_id;
+	  delete from products as p where count < 10 and p.id = d_id;
 	  delete from products as p where p.producer LIKE '%3';
 	  return result;
 	  end;

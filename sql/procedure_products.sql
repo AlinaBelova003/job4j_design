@@ -46,7 +46,7 @@ as $$
   language 'plpgsql'
 as $$
    BEGIN 
-   delete from products as p where p.count = 0;
+   delete from products as p where p.count = 0 and id = d_id;
    delete from products as p where p.producer is null;
    END;
  $$;
