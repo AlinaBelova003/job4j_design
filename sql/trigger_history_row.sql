@@ -10,7 +10,7 @@ create or replace function insert_new_volume_table()
  $$
  Begin
      insert into history_of_price(name, price, date) Values
-     (new.name, new.price, now.date);
+     (new.name, new.price, now(date));
     return new;
  End;
  $$ 

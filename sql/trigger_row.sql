@@ -33,25 +33,12 @@ execute procedure discount();
 
 alter table products disable trigger discount_trigger;
 
-
-
-create of replace function tax_13()
+create or replace function tax_13()
 return trigger as
 $$
   Begin
   update products
   set price = price + (price * 0.13)
-  where id = new.id;
-  return new;
-  END;
-$$
-LANGUAGE 'plpgsql';
-create or replace function tax_13()
-  returns trigger as
-$$
-  Begin
-  update products
-  set price = price + (price + 0.13)
   where id = new.id;
   return new;
   END;
