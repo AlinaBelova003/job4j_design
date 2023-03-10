@@ -19,7 +19,8 @@ public class TableEditor implements AutoCloseable {
     }
 
     /**
-     * Подключаемся к БД
+     * Подключаемся к БД читая данные из файла properties
+     * куда ранее метод properties() (через конструктор) поместил готовый объект Properties.
      */
     private void initConnection() {
         try {
@@ -35,7 +36,7 @@ public class TableEditor implements AutoCloseable {
     }
 
     /**
-     * Читаем свойства в классе Исходников
+     * Читаем свойства в классе Исходников и преобразовываем их в пару ключ-значение
      */
     private static Properties properties() {
         Properties config = new Properties();
@@ -150,5 +151,9 @@ public class TableEditor implements AutoCloseable {
         TableEditor tableEditor = new TableEditor(properties());
         String tableName = "Name";
         tableEditor.createTable(tableName);
+        tableEditor.addColumn(tableName, "last_name", "varchar(255)");
+        tableEditor.renameColumn(tableName, "name", "first_name");
+        tableEditor.dropColumn(tableName, "last_name");
+        tableEditor.dropTable(tableName);
     }
 }
