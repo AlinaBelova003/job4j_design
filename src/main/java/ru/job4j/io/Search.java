@@ -19,7 +19,7 @@ public class Search {
      */
     private static void validate(String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("Не то колличество аргументов");
+            throw new IllegalArgumentException("Не то количество аргументов");
         }
         File file = new File(args[0]);
         if (!file.exists()) {
@@ -31,12 +31,12 @@ public class Search {
             throw new IllegalArgumentException(String.format("Проверьте, что путь - это директория, а не файл %s", args[0]));
         }
         if (!args[1].startsWith("."))  {
-            throw new IllegalArgumentException(String.format("Параметр не начитнается с . %s", args[1]));
+            throw new IllegalArgumentException(String.format("Параметр не начинается с . %s", args[1]));
 
         }
 
         if (args[1].length() < 2) {
-            throw new IllegalArgumentException(String.format("Расщирение не может состоять менее из двух символов: %s", args[1]));
+            throw new IllegalArgumentException(String.format("Расширение не может состоять менее из двух символов: %s", args[1]));
 
         }
 

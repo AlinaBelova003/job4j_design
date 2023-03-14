@@ -1,5 +1,6 @@
 package ru.job4j.jdbc;
 
+import javax.swing.*;
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -42,15 +43,15 @@ public class PreparedStatementDemo {
 
     public boolean update(City city) {
         boolean result = false;
-     try (PreparedStatement statement = connection.prepareStatement("update cites set name = ?, population = ? where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("update cites set name = ?, population = ? where id = ?")) {
             statement.setString(1, city.getName());
             statement.setInt(2, city.getPopulation());
             statement.setInt(3, city.getId());
             result = statement.executeUpdate() > 0;
         } catch (SQLException throwables) {
-         throwables.printStackTrace();
-     }
-     return result;
+            throwables.printStackTrace();
+        }
+        return result;
     }
 
     public boolean delete(int id) {
@@ -74,7 +75,7 @@ public class PreparedStatementDemo {
                             result.getInt("id"),
                             result.getString("name"),
                             result.getInt("population")
-                            ));
+                    ));
                 }
             }
         } catch (SQLException throwables) {
